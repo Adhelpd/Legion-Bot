@@ -1,0 +1,507 @@
+{
+    "components": {
+        "examples": {},
+        "headers": {},
+        "parameters": {},
+        "requestBodies": {},
+        "responses": {},
+        "schemas": {
+            "UserAdminStatus": {
+                "description": "Status within the userAdmin",
+                "enum": [
+                    0,
+                    1,
+                    2,
+                    3
+                ],
+                "type": "number"
+            },
+            "ObjectId": {
+                "type": "string",
+                "description": "A class representation of the BSON ObjectId type."
+            },
+            "User": {
+                "properties": {
+                    "discordName": {
+                        "type": "string"
+                    },
+                    "discordId": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/UserAdminStatus"
+                    },
+                    "unitHistory": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "id": {
+                        "$ref": "#/components/schemas/ObjectId"
+                    },
+                    "dateAdded": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "discordName",
+                    "discordId",
+                    "status",
+                    "unitHistory",
+                    "dateAdded"
+                ],
+                "type": "object",
+                "additionalProperties": false
+            },
+            "Pick_User.discordName-or-status-or-discordId-or-unitHistory_": {
+                "properties": {
+                    "discordName": {
+                        "type": "string"
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/UserAdminStatus"
+                    },
+                    "discordId": {
+                        "type": "string"
+                    },
+                    "unitHistory": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "discordName",
+                    "status",
+                    "discordId",
+                    "unitHistory"
+                ],
+                "type": "object",
+                "description": "From T, pick a set of properties whose keys are in the union K"
+            },
+            "UserCreationParams": {
+                "$ref": "#/components/schemas/Pick_User.discordName-or-status-or-discordId-or-unitHistory_"
+            },
+            "Unit": {
+                "properties": {
+                    "id": {
+                        "$ref": "#/components/schemas/ObjectId"
+                    },
+                    "unitLeader": {
+                        "type": "string"
+                    },
+                    "discordInvite": {
+                        "type": "string"
+                    },
+                    "shorthandName": {
+                        "type": "string"
+                    },
+                    "unitDescriptionTag": {
+                        "type": "string"
+                    },
+                    "unitDescription": {
+                        "type": "string"
+                    },
+                    "availableRoles": {
+                        "type": "string"
+                    },
+                    "missionTimes": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "addedDate": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "lastUpdated": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "unitColor": {
+                        "type": "string"
+                    },
+                    "editors": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    }
+                },
+                "required": [
+                    "unitLeader",
+                    "discordInvite",
+                    "shorthandName",
+                    "unitDescriptionTag",
+                    "unitDescription",
+                    "availableRoles",
+                    "missionTimes",
+                    "addedDate",
+                    "lastUpdated"
+                ],
+                "type": "object",
+                "additionalProperties": false
+            },
+            "Pick_Unit.availableRoles-or-discordInvite-or-lastUpdated-or-missionTimes-or-unitColor-or-shorthandName-or-unitDescription-or-unitDescriptionTag-or-unitLeader_": {
+                "properties": {
+                    "availableRoles": {
+                        "type": "string"
+                    },
+                    "discordInvite": {
+                        "type": "string"
+                    },
+                    "lastUpdated": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "missionTimes": {
+                        "items": {
+                            "type": "string"
+                        },
+                        "type": "array"
+                    },
+                    "unitColor": {
+                        "type": "string"
+                    },
+                    "shorthandName": {
+                        "type": "string"
+                    },
+                    "unitDescription": {
+                        "type": "string"
+                    },
+                    "unitDescriptionTag": {
+                        "type": "string"
+                    },
+                    "unitLeader": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "availableRoles",
+                    "discordInvite",
+                    "lastUpdated",
+                    "missionTimes",
+                    "shorthandName",
+                    "unitDescription",
+                    "unitDescriptionTag",
+                    "unitLeader"
+                ],
+                "type": "object",
+                "description": "From T, pick a set of properties whose keys are in the union K"
+            },
+            "UnitCreationParams": {
+                "$ref": "#/components/schemas/Pick_Unit.availableRoles-or-discordInvite-or-lastUpdated-or-missionTimes-or-unitColor-or-shorthandName-or-unitDescription-or-unitDescriptionTag-or-unitLeader_"
+            }
+        },
+        "securitySchemes": {}
+    },
+    "info": {
+        "title": "legion-bot",
+        "version": "1.0.0",
+        "contact": {}
+    },
+    "openapi": "3.0.0",
+    "paths": {
+        "/user/{id}": {
+            "get": {
+                "operationId": "GetUser",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/User"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            }
+        },
+        "/user": {
+            "get": {
+                "operationId": "GetAllUsers",
+                "responses": {
+                    "201": {
+                        "description": "Retrieved user with id ${id}",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/User"
+                                    },
+                                    "type": "array"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [],
+                "parameters": []
+            },
+            "post": {
+                "operationId": "CreateUser",
+                "responses": {
+                    "201": {
+                        "description": "Retrieved user array"
+                    }
+                },
+                "security": [],
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UserCreationParams"
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/user/updateAdmin": {
+            "put": {
+                "operationId": "UpdateUserAdmin",
+                "responses": {
+                    "201": {
+                        "description": "Updated User"
+                    }
+                },
+                "security": [],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "status",
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/components/schemas/UserAdminStatus"
+                        }
+                    }
+                ]
+            }
+        },
+        "/unit": {
+            "get": {
+                "operationId": "GetAllUnits",
+                "responses": {
+                    "201": {
+                        "description": "Successful Search",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/Unit"
+                                    },
+                                    "type": "array",
+                                    "nullable": true
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [],
+                "parameters": []
+            }
+        },
+        "/unit/{id}": {
+            "get": {
+                "operationId": "SearchUserAdmin",
+                "responses": {
+                    "201": {
+                        "description": "Retrieved User",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/Unit"
+                                    },
+                                    "type": "array"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            }
+        },
+        "/unit/search/{shorthand}": {
+            "get": {
+                "operationId": "SearchShorthand",
+                "responses": {
+                    "201": {
+                        "description": "Searched units",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/Unit"
+                                    },
+                                    "type": "array"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [],
+                "parameters": [
+                    {
+                        "in": "path",
+                        "name": "shorthand",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ]
+            }
+        },
+        "/unit/update/editor": {
+            "put": {
+                "operationId": "UpdateUserEditor",
+                "responses": {
+                    "201": {
+                        "description": "Sucessfully updated"
+                    }
+                },
+                "security": [],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "adminId",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "addId",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "status",
+                        "required": true,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ]
+            }
+        },
+        "/unit/update/adminEditor": {
+            "put": {
+                "operationId": "AdminUpdateUserEditor",
+                "responses": {
+                    "201": {
+                        "description": "Successfully updated"
+                    }
+                },
+                "security": [],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "groupName",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "addId",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "status",
+                        "required": true,
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ]
+            }
+        },
+        "/unit/{requestBody}": {
+            "post": {
+                "operationId": "CreateUnit",
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "allOf": [
+                                        {
+                                            "$ref": "#/components/schemas/Unit"
+                                        }
+                                    ],
+                                    "nullable": true
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [],
+                "parameters": [],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/UnitCreationParams"
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "servers": [
+        {
+            "url": "/"
+        }
+    ]
+}
